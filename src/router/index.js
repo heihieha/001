@@ -1,7 +1,12 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import Cart from '../views/Cart.vue'
+import Category from '../views/Category.vue'
+import Detail from '../views/Detail.vue'
+import Mine from '../views/Mine.vue'
 
+import JsCookie from 'js-cookie'
 Vue.use(VueRouter)
 
   const routes = [
@@ -9,6 +14,26 @@ Vue.use(VueRouter)
     path: '/',
     name: 'Home',
     component: Home
+  },
+  {
+    path: '/cart',
+    name: 'Cart',
+    component: Cart
+  },
+  {
+    path: '/category',
+    name: 'Category',
+    component: Category
+  },
+  {
+    path: '/detail/:id',
+    name: 'Detail',
+    component: Detail
+  },
+  {
+    path: '/mine',
+    name: 'Mine',
+    component: Mine
   },
   {
     path: '/about',
@@ -21,7 +46,13 @@ Vue.use(VueRouter)
 ]
 
 const router = new VueRouter({
-  routes
-})
+  routes,
+  scrollBehavior:function(t,f,s){
+  	return{
+		x:0,
+		y:0
+	}
+  }
+});
 
 export default router
