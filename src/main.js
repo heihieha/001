@@ -9,8 +9,8 @@ import Vant from 'vant';
 import 'vant/lib/index.css';
 Vue.use(Vant);
 
-// import * as api from './api'
-// Vue.prototype.$api = api
+import * as api from './api'
+Vue.prototype.$api = api
 
 import './assets/js/flexible.min.js'
 

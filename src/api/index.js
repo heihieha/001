@@ -1,28 +1,28 @@
-// //  封装API 
+//  封装API 
 
-// import axios from 'axios'
-// // 配置默认域名
-// axios.defaults.baseURL = 'http://520mg.com';
+import axios from 'axios'
+// 配置默认域名
+axios.defaults.baseURL = 'https://m.kaola.com';
 
 
-// // 首页数据API
-// let getHomeDataAPI = (data)=>{
-// 	return axios.get("/mi/page.php",{
-// 		params:{
-// 			page_type:data.page_type,
-// 			page_id:data.page_id
-// 		}
-// 	})
-// }
-// //搜索
+// 首页数据API
+let getHomeDataAPI = (data)=>{
+	return axios.get("/frontCategory/2.html",{
+		params:{
+			page_type:data.page_type,
+			page_id:data.page_id
+		}
+	})
+}
+//搜索
 // let searchAPI = (data)=>{
 // 	return axios.post("/mi/search.php",data)
 // }
-// //
+//
 // import './mock.js'
 
 
-// //fl
+//fl
 // let getCategoryDataAPI = ()=>{
 // 	return axios.get("/mi/category.php")
 // }
@@ -36,20 +36,20 @@
 // 	})
 // }
 
-// // 发送验证码
-// let sendSMSAPI = (data)=>{
-// 	return axios.post("mi/sms.php",data)
-// }
+// 发送验证码
+let sendSMSAPI = (data)=>{
+	return axios.post("mi/sms.php",data)
+}
 
-// // 发送登录
-// let loginAPI = (data)=>{
-// 	return axios.post("mi/login.php",data)
-// }
+// 发送登录
+let loginAPI = (data)=>{
+	return axios.post("/login.php",data)
+}
 
-// // 注册
-// let registAPI = (data)=>{
-// 	return axios.post("mi/regist.php",data)
-// }
+// 注册
+let registAPI = (data)=>{
+	return axios.post("/regist.php",data)
+}
 
 // //中心
 // let userInAPI = (data)=>{
@@ -59,14 +59,14 @@
 // let getUserInfo = ()=>{
 // 	return axios.get("mi/userinfo.php")
 // }
-// export {
-// getHomeDataAPI,
+export {
+getHomeDataAPI,
 // searchAPI,
 // getCategoryDataAPI,
 // getProductDataAPI,
-// sendSMSAPI,
-// loginAPI,
-// registAPI,
+sendSMSAPI,
+loginAPI,
+registAPI,
 // userInAPI,
 // getUserInfo
-// }
+}

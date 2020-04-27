@@ -6,6 +6,11 @@ import Category from '../views/Category.vue'
 import Detail from '../views/Detail.vue'
 import Mine from '../views/Mine.vue'
 
+
+import Login  from '../views/Login.vue'
+import Regist  from '../views/Regist.vue'
+
+
 import JsCookie from 'js-cookie'
 Vue.use(VueRouter)
 
@@ -13,7 +18,10 @@ Vue.use(VueRouter)
   {
     path: '/',
     name: 'Home',
-    component: Home
+    component: Home,
+	meta:{
+		showtabbar:true
+	}
   },
   {
     path: '/cart',
@@ -33,7 +41,21 @@ Vue.use(VueRouter)
   {
     path: '/mine',
     name: 'Mine',
-    component: Mine
+    component: Mine,
+	meta:{
+		showtabbar:true,
+		auth:true
+	}
+  },
+  {
+    path: '/login',
+    name:'Login',
+    component: Login
+  }, 
+  {
+    path: '/regist',
+    name:'Regist',
+    component: Regist
   },
   {
     path: '/about',
@@ -54,5 +76,25 @@ const router = new VueRouter({
 	}
   }
 });
-
+//导航守卫
+router.beforeEach( (t,f,n)=>{
+	if(t.meta.auth){
+		let logined = JsCookie.get("username");
+		if(!logined){
+			n("/login?next="+t.path)
+			console.log("需要导航守卫,未登录过");
+			
+		}
+		else{
+			console.log("需要导航守卫,已经登录过");
+			n();
+		}
+		
+	}
+	else{
+		console.log("不需要导航守卫");
+		n();
+	}
+	
+} )
 export default router

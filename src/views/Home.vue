@@ -13,7 +13,7 @@
 	<div class="poit">
 	<div class="lun">
 		<div class="iocn">
-		<van-swipe :autoplay="2000">
+		<van-swipe :autoplay="2000" class="van-swipe">
 		  <van-swipe-item v-for="item in goods[0].goods" class="van-swipe-item">
 		    <img v-lazy="item.img"  style="width: 100%;"/>
 		  </van-swipe-item>
@@ -148,10 +148,9 @@
 </template>
 <style scoped lang="less">
 	.home{
-	position: relative;
-	bottom: 50px;
-	left: 0;
-	right: 0;
+	.van-swipe{
+		height: 100%;
+	}
 		.divs{
 			.top{
 				text-align: center;
@@ -166,11 +165,12 @@
 				text-align: center;
 			}
 		}
-		.poit{
-			position: relative;
-			top: 50px;
-			left: 0;
-			right: 0;
+		.lun{
+			width: 100%;
+			
+			.iocn{
+				height: 4.5rem;
+			}
 		}
 	}
 	.top{
