@@ -1,15 +1,16 @@
 <template>
-  <div class="home">
-	  <van-sticky :offset-top="0">
+ <div>
+	  <van-sticky :offset-top="0" class="xi">
 	<div class="top">
 		<div class="top_left">
-			<van-search  v-model="value" shape="round"  placeholder="请输入搜索关键词"/>
+			<van-search @click="go" placeholder="请输入搜索关键词" style='width: 100%;height: .5rem;margin: .2rem 0;'/>
 		</div>
 		<div class="top_right">
 			<img src="../assets/img/ZnB0PM5xDzXZ2FeVlmT170102401021_150_150.png">
 		</div>
 	</div>
 	</van-sticky>
+	 <div class="home">
 	<div class="poit">
 	<div class="lun">
 		<div class="iocn">
@@ -60,12 +61,15 @@
 		<div class="wu">
 			<div class="bottom" >
 				<div class="bai" v-for="item in goods[3].home[1].globalGoodsItemList">
+					<router-link :to="{name:'Detail'}">
 					<div><img :src="item.imageUrl"></div>
 						<div class="fontu">
 							<div class="font"><p>{{item.title}}</p></div>
 							<div class="my">￥<span>{{item.currentPrice}}</span></div>
 						</div>
+						</router-link>
 				</div>
+				
 			</div>
 		</div>	
 
@@ -145,26 +149,20 @@
 	</div>
 	</div>
   </div>
+  </div>
 </template>
 <style scoped lang="less">
-	.home{
+	.home{    
+		position: relative;
+		top: 50px;
+		.poit{
+			position: relative;
+			bottom: 50px;
+		}
 	.van-swipe{
 		height: 100%;
 	}
-		.divs{
-			.top{
-				text-align: center;
-				font-size: .25rem;
-			}
-			padding: .22rem 1rem;
-			color: #848689;
-			p{
-				padding: 5px 0 0;
-				font-size: 12px;
-				color: #999;
-				text-align: center;
-			}
-		}
+
 		.lun{
 			width: 100%;
 			
@@ -295,6 +293,21 @@
 				background-size: .25rem;
 			}
 		}
+		.divs{
+			.top{
+				text-align: center;
+				font-size: .25rem;
+			}
+			padding: .22rem 1rem;
+			color: #848689;
+			p{
+				padding: 5px 0 0;
+				font-size: 12px;
+				color: #999;
+				text-align: center;
+			}
+		}
+		
 </style>
 		
 <script >
@@ -317,6 +330,11 @@ export default {
 	  this.goods = data[0].data.advGood
 	  let goods = this.goods
 	  console.log(goods[4].home[0].globalGoodsItemList)
+	},
+	methods:{
+		go(){
+			this.$router.push("/search")
+		}
 	}
   
   }

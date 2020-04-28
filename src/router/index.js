@@ -10,6 +10,8 @@ import Mine from '../views/Mine.vue'
 import Login  from '../views/Login.vue'
 import Regist  from '../views/Regist.vue'
 
+import Searchjie  from  '../views/Searchjie.vue'
+import Search  from  '../views/Search.vue'
 
 import JsCookie from 'js-cookie'
 Vue.use(VueRouter)
@@ -34,9 +36,19 @@ Vue.use(VueRouter)
     component: Category
   },
   {
-    path: '/detail/:id',
+    path: '/detail',
     name: 'Detail',
     component: Detail
+  },
+  {
+    path: '/search',
+    name: 'Search',
+    component: Search
+  },
+  {
+    path: '/search/list',
+    name: 'Searchjie',
+    component: Searchjie
   },
   {
     path: '/mine',
