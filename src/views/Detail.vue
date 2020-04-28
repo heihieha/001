@@ -39,20 +39,25 @@
 		</div>
 	</div>
 	<div class="xian"></div>
-	<div >
-	<van-sku
-	  v-model="show"
-	  :sku="sku"
-	  :goods="goods"
-	  :goods-id="goodsId"
-	  :quota="quota"
-	  :quota-used="quotaUsed"
-	  :hide-stock="sku.hide_stock"
-	  :message-config="messageConfig"
-	  @buy-clicked="onBuyClicked"
-	  @add-cart="onAddCartClicked"
-	/>
-	</div>
+	<div style="width: 100%;height: 1rem;">
+		<div class="left"  @click="alertMenu">
+			<div class="r1">
+				<p class="colo">促销：</p>
+				<div class="colo1">
+					<p>[满件减] 满2件享7.5折</p>
+					<p>[考拉豆抵扣] 单件可用6豆抵3元</p>
+					<p>[加价购] 加入购物车，即可低价换购热销商品</p>
+				</div>
+			</div>
+			<p>&gt;</p>
+		</div>
+		<van-action-sheet v-model="show" title="标题">
+		  <div class="content">
+				<p>[满件减] 满2件享7.5折</p>
+				<p>[考拉豆抵扣] 单件可用6豆抵3元</p>
+				<p>[加价购] 加入购物车，即可低价换购热销商品</p></div>
+		</van-action-sheet>
+  </div>
   </div>
   <van-goods-action class="action">
     <van-goods-action-icon icon="chat-o" text="考拉客服" @click="onClickIcon" />
@@ -60,20 +65,36 @@
     <van-goods-action-button
       type="warning"
       text="加入购物车"
-      @click="onClickButton"
+      @click="AddCartClicked"
     />
     <van-goods-action-button
       type="danger"
       text="立即购买"
-      @click="onClickButton"
+      @click="BuyClicked"
     />
+	<van-sku
+	v-model="show1"
+	  :sku="sku"
+	  :goods="goods"
+	  :goods-id="sku.tree.id"
+	  :hide-stock="sku.hide_stock"
+	  @sku-selected="onSkuSelect"
+	  @buy-clicked="onBuyClicked"
+	  @add-cart="onAddCartClicked"
+	/>
   </van-goods-action>
   </div>
 </template>
 <style lang="less" scoped="scoped">
 	.detail{	
+		.content {
+		   padding: 16px 16px 160px;
+		   p{
+			   text-align: left;
+		   }
+		 }
 		position: relative;
-		top: 50px;
+		top: 100px;
 		.lun{
 			position: relative;
 			.go{
@@ -149,7 +170,25 @@
 			padding: .2rem 0;
 			background-color: #f7f7f7;
 		}
-		
+		.left{
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			padding: .2rem;
+			.r1{
+				.colo{
+					float: left;
+				}
+				.colo1{
+					float: left;
+					p{
+						text-align: left;
+						color: #f00;
+						font-size: .22rem;
+					}
+				}
+			}
+		}
 		.yi{
 			margin-left: .1rem;
 			img{
@@ -172,7 +211,7 @@
 	}
 	.pppp{
 		position: relative;
-		bottom: 50px;
+		bottom: 100px;
 	}
 </style>
 <script>
@@ -181,8 +220,9 @@
 	
 	import { Toast } from 'vant';
 	Vue.use(Lazyload);
-	
-import { Sku } from 'vant';
+	import { ActionSheet } from 'vant';
+	Vue.use(ActionSheet);
+	import { Sku } from 'vant';
 
 Vue.use(Sku);
 import data from '../data'
@@ -191,81 +231,88 @@ export default {
    data() {
     return {
 		value:"",
-
 		show:false,
+		show1:false,
+		actions: [
+			{ name: '选项' },
+			{ name: '选项' },
+			{ name: '选项', subname: '描述信息' },
+		  ],
 		 sku: {
 			 tree: [
-			     {
-			       k: '颜色', // skuKeyName：规格类目名称
-			       v: [
-			         {
-			           id: '30349', // skuValueId：规格值 id
-			           name: '红色', // skuValueName：规格值名称
-			           imgUrl: 'https://img.yzcdn.cn/1.jpg', // 规格类目图片，只有第一个规格类目可以定义图片
-			           previewImgUrl: 'https://img.yzcdn.cn/1p.jpg', // 用于预览显示的规格类目图片
-			         },
-			         {
-			           id: '1215',
-			           name: '蓝色',
-			           imgUrl: 'https://img.yzcdn.cn/2.jpg',
-			           previewImgUrl: 'https://img.yzcdn.cn/2p.jpg',
-			         }
-			       ],
-			       k_s: 's1' // skuKeyStr：sku 组合列表（下方 list）中当前类目对应的 key 值，value 值会是从属于当前类目的一个规格值 id
-			     }
+			   {
+			     k: '颜色', // skuKeyName：规格类目名称
+			     v: [
+			   	{
+			   	  id: '1167', // skuValueId：规格值 id
+			   	  name: '深海微光', // skuValueName：规格值名称
+			   	},
+			   	{
+			   	  id: '1168',
+			   	  name: '紫玉幻境',
+			   	},
+			   	,
+			   	{
+			   	  id: '1169',
+			   	  name: '花影惊鸿',
+			   	}
+			     ],
+			     k_s: 's381' // skuKeyStr：sku 组合列表（下方 list）中当前类目对应的 key 值，value 值会是从属于当前类目的一个规格值 id
+			   },
+			   {
+			     k: '版本', // skuKeyName：规格类目名称
+			     v: [
+			   	{
+			   	  id: '1164', // skuValueId：规格值 id
+			   	  name: '6GB+128GB', // skuValueName：规格值名称
+			   	},
+			   	{
+			   	  id: '1165',
+			   	  name: '8GB+128GB',
+			   	},
+			   	{
+			   	  id: '1166',
+			   	  name: '8GB+256GB',
+			   	}
+			     ],
+			     k_s: 's380' // skuKeyStr：sku 组合列表（下方 list）中当前类目对应的 key 值，value 值会是从属于当前类目的一个规格值 id
+			   }
 			   ],
 			   // 所有 sku 的组合列表，比如红色、M 码为一个 sku 组合，红色、S 码为另一个组合
 			   list: [
-			     {
-			       id: 2259, // skuId，下单时后端需要
-			       price: 100, // 价格（单位分）
-			       s1: '1215', // 规格类目 k_s 为 s1 的对应规格值 id
-			       s2: '1193', // 规格类目 k_s 为 s2 的对应规格值 id
-			       s3: '0', // 最多包含3个规格值，为0表示不存在该规格
-			       stock_num: 110 // 当前 sku 组合对应的库存
-			     }
-			   ],
-			   price: '1.00', // 默认价格（单位元）
-			   stock_num: 227, // 商品总库存
-			   collection_id: 2261, // 无规格商品 skuId 取 collection_id，否则取所选 sku 组合对应的 id
-			   none_sku: false, // 是否无规格商品
-			   messages: [
-			     {
-			       // 商品留言
-			       datetime: '0', // 留言类型为 time 时，是否含日期。'1' 表示包含
-			       multiple: '0', // 留言类型为 text 时，是否多行文本。'1' 表示多行
-			       name: '留言', // 留言名称
-			       type: 'text', // 留言类型，可选: id_no（身份证）, text, tel, date, time, email
-			       required: '1', // 是否必填 '1' 表示必填
-			       placeholder: '' // 可选值，占位文本
-			     }
+			   
+			      {
+			        id: 2194700016, // skuId，下单时后端需要
+			        price: 1699*100, // 价格（单位分）
+			        s380: '1164', // 规格类目 k_s 为 s1 的对应规格值 id
+			        s381: '1167', // 规格类目 k_s 为 s2 的对应规格值 id
+			        stock_num: 100 // 当前 sku 组合对应的库存
+			      },
+			      {
+			        id: 2194700019, // skuId，下单时后端需要
+			        price: 1899*100, // 价格（单位分）
+			        s380: '1165', // 规格类目 k_s 为 s1 的对应规格值 id
+			        s381: '1167', // 规格类目 k_s 为 s2 的对应规格值 id
+			        stock_num: 120 // 当前 sku 组合对应的库存
+			      },
+			      {
+			        id: 2194700022, // skuId，下单时后端需要
+			        price: 2199*100, // 价格（单位分）
+			        s380: '1166', // 规格类目 k_s 为 s1 的对应规格值 id
+			        s381: '1167', // 规格类目 k_s 为 s2 的对应规格值 id
+			        stock_num: 140 // 当前 sku 组合对应的库存
+			      },
+			     
 			   ],
 			   hide_stock: false // 是否隐藏剩余库存
 		 },
 		 goods:{
-			   picture: 'https://img.yzcdn.cn/1.jpg'
+		
 		 },
-		 messageConfig:{
-			   // 自定义限购文案
-			   quotaText: '每次限购xxx件',
-			   // 自定义步进器超过限制时的回调
-			   handleOverLimit: (data) => {
-			     const { action, limitType, quota, quotaUsed, startSaleNum } = data;
-			 
-			     if (action === 'minus') {
-			       Toast(startSaleNum > 1  ? `${startSaleNum}件起售` : '至少选择一件商品');
-			     } else if (action === 'plus') {
-			       // const { LIMIT_TYPE } = Sku.skuConstants;
-			       if (limitType === LIMIT_TYPE.QUOTA_LIMIT) {
-			         let msg = `单次限购${quota}件`;
-			         if (quotaUsed > 0) msg += `，你已购买${quotaUsed}`;
-			         Toast(msg);
-			       } else {
-			         Toast('库存不够了');
-			       }
-			     }
-		 }
-      },
+		 // 商品的详细数据
+		 data:null,
+		 // 选中商品的sku规格
+		 selectGood:null
     }
 	},
 	created(){
@@ -274,6 +321,45 @@ export default {
 	  console.log(goods[16])
 	},
 	methods:{
+		alertMenu(){
+			this.show=true
+		},
+		onSelect(item) {
+      // 默认情况下点击选项时不会自动收起
+      // 可以通过 close-on-click-action 属性开启自动收起
+      this.show = false;
+      Toast(item.name);
+    },
+		BuyClicked(){
+				  
+		},
+		AddCartClicked(good){
+			this.show1=true
+			this.$store.dispatch("addGoodAsync",{
+				goodid:this.sku.tree.id,
+				sukid:this.selectGood.goods_id,
+				name:this.selectGood.name,
+				price:this.selectGood.price,
+				dasc:this.selectGood.product_dasc,
+				image:this.selectGood.img_url,
+				num:1
+			}).then(()=>{
+				this.$toast("ss")
+			})
+		},
+		onAddCartClicked(good){
+			 this.$store.dispatch("addGoodAsync",{
+				goodid:this.sku.tree.id,
+				sukid:this.selectGood.goods_id,
+				name:this.selectGood.name,
+				price:this.selectGood.price,
+				dasc:this.selectGood.product_dasc,
+				image:this.selectGood.img_url,
+				num:good.selectGood
+			 }).then(()=>{
+				this.$toast("ss")
+			 })
+		},
 		onSelect(option) {
 		  Toast(option.name);
 		  this.showShare = false;
@@ -282,10 +368,29 @@ export default {
 			 this.$router.go(-1)
 		},
 		onClickIcon() {
-		      Toast('点击图标');
+		       this.$router.push("/cart")
 		 },
-		    onClickButton() {
+		 onClickButton() {
 		      Toast('点击按钮');
+		},
+		onBuyClicked(good){
+				  console.log("购买商品",good.selectedSkuComb);
+				 // this.$toast('点击了购买');
+		},
+		onSkuSelect(good){
+		  // console.log("选择了规格结果为",good.);
+		  if(good.selectedSkuComb)
+		  {
+			  console.log("选择了规格结果为",good.selectedSkuComb.id);
+			  this.data.goods_info.forEach((item,index)=>{
+				  if(item.goods_id==good.selectedSkuComb.id)
+				  {
+					  this.selectGood = item;
+				  }
+			  })
+			  
+			  
+		  }
 		},
 	}
   
