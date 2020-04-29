@@ -28,7 +28,11 @@ Vue.use(VueRouter)
   {
     path: '/cart',
     name: 'Cart',
-    component: Cart
+    component: Cart,
+	meta:{
+		showtabbar:true,
+		auth:true
+	}
   },
   {
     path: '/category',
@@ -94,17 +98,14 @@ router.beforeEach( (t,f,n)=>{
 		let logined = JsCookie.get("username");
 		if(!logined){
 			n("/login?next="+t.path)
-			console.log("需要导航守卫,未登录过");
 			
 		}
 		else{
-			console.log("需要导航守卫,已经登录过");
 			n();
 		}
 		
 	}
 	else{
-		console.log("不需要导航守卫");
 		n();
 	}
 	

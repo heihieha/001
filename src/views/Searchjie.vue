@@ -1,10 +1,15 @@
 <template>
 	<div class="a">
 		<div class="searchjie">
-			<van-nav-bar fixed   left-arrow class="header"   @click-left="onClickLeft" @click-right="onClickRight">
-				<input type="text" slot="title" v-model="value" placeholder="搜索商品名称" >
-			<van-icon slot="right"  name="search" size="18" />
-			</van-nav-bar>
+			<form action="/">
+			  <van-search
+			    v-model="value"
+			    show-action
+			    placeholder="请输入搜索关键词"
+			    @search="onSearch"
+			    @cancel="onCancel"
+			  />
+			</form>
 			<div class="csrt">
 				<div v-for="(item,index) in datas" :key="index" class="pdd">
 					<div class="l">
@@ -49,10 +54,10 @@
 					   }
 				   })
 			   },
-		   onClickLeft() {
+		   onCancel() {
 			   this.$router.go(-1)
 		   },
-		   onClickRight() {
+		   onSearch() {
 				  if(this.value.length>0){
 					  this.search(this.value)
 				  }
@@ -71,11 +76,11 @@
 <style  lang="less" scoped="scoped">
 	.header{
 		
-		background-color: #f2f2f2;
+		background-color: #FFFFFF;
 	}
 	.a{
 		position: absolute;
-		top: 1.6rem;
+		top: .6rem;
 	}
 	input{
 			border: 0.01rem solid #e5e5e5;

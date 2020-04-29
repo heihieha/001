@@ -316,8 +316,9 @@
 			position: absolute;
 			left: 25%;
 			top: 0;
-			bottom:1rem;
+			bottom:1.5rem;
 			right: 0;
+			padding: .1rem 0 0 .1rem;
 			overflow-y: scroll;
 			font-size: .26rem;
 			.cat{
@@ -363,8 +364,6 @@ export default {
   created(){
     this.goods = data[0].data.advGood
     let goods = this.goods
-    console.log(goods[11].topLevelFrontCategoryVOList[0].appIcon)
-    console.log(goods[11].topLevelFrontCategoryVOList)
   },
    methods: {
       onChange(index) {

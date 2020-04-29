@@ -39,7 +39,7 @@
 		</div>
 	</div>
 	<div class="xian"></div>
-	<div style="width: 100%;height: 1rem;">
+	<div style="width: 100%;">
 		<div class="left"  @click="alertMenu">
 			<div class="r1">
 				<p class="colo">促销：</p>
@@ -51,13 +51,49 @@
 			</div>
 			<p>&gt;</p>
 		</div>
-		<van-action-sheet v-model="show" title="标题">
+		<van-action-sheet v-model="show" title="促销">
 		  <div class="content">
 				<p>[满件减] 满2件享7.5折</p>
 				<p>[考拉豆抵扣] 单件可用6豆抵3元</p>
 				<p>[加价购] 加入购物车，即可低价换购热销商品</p></div>
 		</van-action-sheet>
   </div>
+  <div class="xian"></div>
+  	<div style="width: 100%;">
+  		<div class="left"  @click="alertMenu2">
+  			<div class="r1">
+  				<p class="colo">运费：</p>
+  					<p style="float: left;">满88元免运费</p>
+  			</div>
+  			<p>&gt;</p>
+  		</div>
+  		<van-action-sheet v-model="show2" title="运费说明">
+  		  <div class="content">
+  				<p>自营订单满88元包邮，不足金额的订单收取10元运费，以商品活动后的总金额为准，不含税费，使用虚拟资产(优惠券、红包、考拉豆等)不影响包邮的计算，特殊商品、自营店铺及入驻商家商品单独计算运费。</p>
+		  </div>
+  		</van-action-sheet>
+  </div>
+    <div class="xian"></div>
+	<div class="pjia">
+		<div class="gun">
+			<div class="ptop">
+				<p>其他小伙伴说</p>
+				<p>&gt;</p>
+			</div>
+			<div class="lai">
+				<div class="piocn" v-for="(item,index) in goods[16].excellentCommentList">
+					<div class="pfont">
+						<div class="ttop">
+							<img :src="item.avatarKaola">
+							<span>{{item.accountShow}}</span>
+						</div>
+						<p>{{item.commentContent}}</p>
+					</div>
+					<img :src="item.imgUrlListsFor75" alt="" class="ssss">
+				</div>
+			</div>
+		</div>
+	</div>
   </div>
   <van-goods-action class="action">
     <van-goods-action-icon icon="chat-o" text="考拉客服" @click="onClickIcon" />
@@ -75,7 +111,7 @@
 	<van-sku
 	v-model="show1"
 	  :sku="sku"
-	  :goods="goods"
+	  :goods="goodsw"
 	  :goods-id="sku.tree.id"
 	  :hide-stock="sku.hide_stock"
 	  @sku-selected="onSkuSelect"
@@ -213,6 +249,51 @@
 		position: relative;
 		bottom: 100px;
 	}
+	.pjia{
+
+		overflow: hidden;
+		padding: .2rem;
+		.gun{
+			width: 100%;
+			overflow-x: scroll;
+		}
+		.ptop{
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			position: absolute;
+			width: 94.5%;
+		}
+		.lai{
+				display: flex;
+				padding-top: .5rem;
+			}
+		.piocn{
+			display: flex;
+			img.ssss{
+				width: 3rem;
+				height: 3rem;
+			}
+			.pfont{
+				padding:  .2rem;
+				p{
+					width: 3.5rem;
+					padding:.2rem 0 ;
+				}
+			}
+		}
+		.ttop{
+			display: flex;
+			align-items: center;
+			img{
+				width: .5rem;
+			}
+			span{
+				padding-left: .1rem;
+			}
+		}
+	}
+
 </style>
 <script>
 	import Vue from 'vue';
@@ -233,47 +314,28 @@ export default {
 		value:"",
 		show:false,
 		show1:false,
-		actions: [
-			{ name: '选项' },
-			{ name: '选项' },
-			{ name: '选项', subname: '描述信息' },
-		  ],
+		show2:false,
+		
 		 sku: {
 			 tree: [
 			   {
-			     k: '颜色', // skuKeyName：规格类目名称
+			     k: '规格', // skuKeyName：规格类目名称
 			     v: [
 			   	{
 			   	  id: '1167', // skuValueId：规格值 id
-			   	  name: '深海微光', // skuValueName：规格值名称
-			   	},
-			   	{
-			   	  id: '1168',
-			   	  name: '紫玉幻境',
-			   	},
-			   	,
-			   	{
-			   	  id: '1169',
-			   	  name: '花影惊鸿',
+			   	  name: '面膜20片装', // skuValueName：规格值名称
 			   	}
 			     ],
 			     k_s: 's381' // skuKeyStr：sku 组合列表（下方 list）中当前类目对应的 key 值，value 值会是从属于当前类目的一个规格值 id
 			   },
 			   {
-			     k: '版本', // skuKeyName：规格类目名称
+			     k: '搭配', // skuKeyName：规格类目名称
 			     v: [
 			   	{
 			   	  id: '1164', // skuValueId：规格值 id
-			   	  name: '6GB+128GB', // skuValueName：规格值名称
+			   	  name: '面霜6件套', // skuValueName：规格值名称
 			   	},
-			   	{
-			   	  id: '1165',
-			   	  name: '8GB+128GB',
-			   	},
-			   	{
-			   	  id: '1166',
-			   	  name: '8GB+256GB',
-			   	}
+
 			     ],
 			     k_s: 's380' // skuKeyStr：sku 组合列表（下方 list）中当前类目对应的 key 值，value 值会是从属于当前类目的一个规格值 id
 			   }
@@ -288,25 +350,11 @@ export default {
 			        s381: '1167', // 规格类目 k_s 为 s2 的对应规格值 id
 			        stock_num: 100 // 当前 sku 组合对应的库存
 			      },
-			      {
-			        id: 2194700019, // skuId，下单时后端需要
-			        price: 1899*100, // 价格（单位分）
-			        s380: '1165', // 规格类目 k_s 为 s1 的对应规格值 id
-			        s381: '1167', // 规格类目 k_s 为 s2 的对应规格值 id
-			        stock_num: 120 // 当前 sku 组合对应的库存
-			      },
-			      {
-			        id: 2194700022, // skuId，下单时后端需要
-			        price: 2199*100, // 价格（单位分）
-			        s380: '1166', // 规格类目 k_s 为 s1 的对应规格值 id
-			        s381: '1167', // 规格类目 k_s 为 s2 的对应规格值 id
-			        stock_num: 140 // 当前 sku 组合对应的库存
-			      },
-			     
+
 			   ],
 			   hide_stock: false // 是否隐藏剩余库存
 		 },
-		 goods:{
+		 goodsw:{
 		
 		 },
 		 // 商品的详细数据
@@ -324,6 +372,9 @@ export default {
 		alertMenu(){
 			this.show=true
 		},
+		alertMenu2(){
+			this.show2=true
+		},
 		onSelect(item) {
       // 默认情况下点击选项时不会自动收起
       // 可以通过 close-on-click-action 属性开启自动收起
@@ -336,12 +387,10 @@ export default {
 		AddCartClicked(good){
 			this.show1=true
 			this.$store.dispatch("addGoodAsync",{
-				goodid:this.sku.tree.id,
-				sukid:this.selectGood.goods_id,
-				name:this.selectGood.name,
-				price:this.selectGood.price,
-				dasc:this.selectGood.product_dasc,
-				image:this.selectGood.img_url,
+				goodid:this.id,
+				sukid:this.id,
+				name:this.name,
+				price:this.price,
 				num:1
 			}).then(()=>{
 				this.$toast("ss")
@@ -349,13 +398,11 @@ export default {
 		},
 		onAddCartClicked(good){
 			 this.$store.dispatch("addGoodAsync",{
-				goodid:this.sku.tree.id,
-				sukid:this.selectGood.goods_id,
-				name:this.selectGood.name,
-				price:this.selectGood.price,
-				dasc:this.selectGood.product_dasc,
-				image:this.selectGood.img_url,
-				num:good.selectGood
+				goodid:this.id,
+				sukid:this.id,
+				name:this.name,
+				price:this.price,
+				num:1
 			 }).then(()=>{
 				this.$toast("ss")
 			 })
@@ -379,18 +426,11 @@ export default {
 		},
 		onSkuSelect(good){
 		  // console.log("选择了规格结果为",good.);
-		  if(good.selectedSkuComb)
-		  {
 			  console.log("选择了规格结果为",good.selectedSkuComb.id);
-			  this.data.goods_info.forEach((item,index)=>{
-				  if(item.goods_id==good.selectedSkuComb.id)
-				  {
-					  this.selectGood = item;
-				  }
-			  })
 			  
 			  
-		  }
+			  
+
 		},
 	}
   

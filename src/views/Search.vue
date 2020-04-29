@@ -1,9 +1,14 @@
 <template>
 	<div class="search">
-		<van-nav-bar  left-arrow  class="header" @click-left="onClickLeft" @click-right="onClickRight">
-			   <input type="text" slot= "title" v-model="value" placeholder="请输入搜索关键词" style="width: 90%;height: .5rem;">
-			   <van-icon slot= "right" name="search" size="18" />
-		</van-nav-bar>
+		<form action="/">
+		  <van-search
+		    v-model="value"
+		    show-action
+		    placeholder="请输入搜索关键词"
+		    @search="onSearch"
+		    @cancel="onCancel"
+		  />
+		</form>
 		<div class="co">
 			<p class="h">热门搜索</p>
 			<van-tag @click="timi(item)" plain :type=" yans[Math.floor(Math.random()*yans.length)]  " v-for="(item,index) in po" class="biao">{{item}}</van-tag>
@@ -22,10 +27,10 @@
 		    }
 		  },
 		  methods:{
-			  onClickLeft(){
+			  onCancel(){
 				  this.$router.go(-1)
 			  },
-			  onClickRight() {
+			  onSearch() {
 				  console.log(this.value)
 				  if(this.value.length>0){
 					  this.timi(this.value)
@@ -61,5 +66,21 @@
 			margin:  .1rem;
 			font-size: .26rem;
 		}
+	}
+	.van-ellipsis{
+		max-width: 74%;
+	}
+	.header{
+		input{
+			width: 100%;
+			height: .5rem;
+			border: none;
+			text-indent: .5rem;
+			font-size: .28rem;
+			background-color: #F2F2F2;
+			
+		}
+		
+		
 	}
 </style>

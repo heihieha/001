@@ -37,10 +37,10 @@
 			<img src="https://kaola-haitao.oss.kaolacdn.com/fdbcc17a-cc54-427d-9acf-3a92fafca855T2003131808_480_480.gif">
 		</div>
 		<div class="san_right">
-			<div class="top">
+			<div class="san_top">
 				<img src="https://kaola-haitao.oss.kaolacdn.com/1996f3ba-3ee7-4eac-9f6d-a9b81194f68cT1911291646_480_240.gif">
 			</div>
-			<div class="bottom">
+			<div class="san_bottom">
 				<img src="https://kaola-haitao.oss.kaolacdn.com/463b3b9b-f7a2-4ac6-bdee-07d8e9cb4dccT2003171437_480_240.gif">
 			</div>
 		</div>
@@ -172,7 +172,6 @@
 		}
 	}
 	.top{
-
 		display: flex;
 		justify-content: space-around;
 		align-items: center;
@@ -200,6 +199,7 @@
 			}
 	  }
 	  .centen{
+		   width: 100%;
 		  img{
 			  width: 100%;
 		  }
@@ -221,6 +221,18 @@
 	}
 	.san{
 		display: flex;
+		.san_left{
+			width: 50%;
+		}
+		.san_right{
+			width: 50%;
+			.san_top{
+				width: 100%;
+			}
+			.san.bottom{
+				width: 100%;
+			}
+		}
 		img{
 			width: 100%;
 		}
@@ -329,7 +341,6 @@ export default {
 	created(){
 	  this.goods = data[0].data.advGood
 	  let goods = this.goods
-	  console.log(goods[4].home[0].globalGoodsItemList)
 	},
 	methods:{
 		go(){

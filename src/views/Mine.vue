@@ -130,9 +130,10 @@
 		.bottomiocn{
 			display: flex;
 			justify-content: space-around;
-			width: 80%;
+			width: 82%;
 			.i{
 				display: flex;
+				width: 100%;
 				margin-left: .1rem;
 				.img{
 					width: .24rem;
@@ -192,7 +193,6 @@
    created() {
 	this.goods = data[0].data.advGood
 	let goods = this.goods
-	console.log(goods[12])
   }
  }
 </script>
